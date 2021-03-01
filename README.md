@@ -35,3 +35,15 @@ kubectl apply -f argo/godemo.yaml
 
 argocd app list
 argocd app sync go-metrics
+
+
+# Deploy prometheus operator
+kubectl apply -f argo/prometheus-operator.yaml
+
+argocd app list
+argocd app sync prometheus-operator
+
+# Deploy kube-prometheus stack
+kubectl apply -f argo/kube-prometheus.yaml
+argocd app list
+argocd app sync kube-prometheus
