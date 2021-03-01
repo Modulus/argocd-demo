@@ -20,6 +20,18 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 argocd login localhost:8080 
 
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+Password is name of argocd-server pod
+
+kubectl get po -n argocd  #optional
+
 
 argocd account update-password
+
+# Deploy argo application
+kubectl apply -f argo/godemo.yaml
+
+
+# Argocd commands
+
+argocd app list
+argocd app sync go-metrics
