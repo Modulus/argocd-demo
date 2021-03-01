@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: go-metrics-pod-monitor
+  namespace: monitoring
+  labels:
+    k8s-app: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - default
+      - demo
+  selector:
+    matchLabels:
+      app: metrics-demo
+  podMetricsEndpoints:
+    - port: metrics
+      interval: 30s
