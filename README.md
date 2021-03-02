@@ -34,30 +34,48 @@ kubectl get po -n argocd  #optional
 
 argocd account update-password
 
-# Deploy argo application
-kubectl apply -f argo/godemo.yaml
+# 1.Default project examples
 
 
-# Argocd commands
+## Deploy prometheus operator
+kubectl apply -f argo-default/prometheus-operator.yaml
 
+argocd app list
+argocd app sync prometheus-operator
+
+## Deploy kube-prometheus stack
+kubectl apply -f argo-default/kube-prometheus.yaml
+argocd app list
+argocd app sync kube-prometheus
+
+## Deploy demo app
+kubectl apply -f argo-default/godemo.yaml
 argocd app list
 argocd app sync go-metrics
 
-# Create project
-argocd proj create core
-argocd proj create demo
+# 2.New project examples
 
-# Create project from file
-kubectl apply -f argo/projects
+## Create projects from file
+kubectl apply -f argo/projects.yaml
 
+## Argocd project commands
+argocd proj list
 
-# Deploy prometheus operator
+## Deploy prometheus operator
 kubectl apply -f argo/prometheus-operator.yaml
 
 argocd app list
 argocd app sync prometheus-operator
 
-# Deploy kube-prometheus stack
+## Deploy kube-prometheus stack
 kubectl apply -f argo/kube-prometheus.yaml
 argocd app list
 argocd app sync kube-prometheus
+
+## Deploy demo app
+kubectl apply -f argo/godemo.yaml
+argocd app list
+argocd app sync go-metrics
+
+
+# TODO: Create demo for encrypted secrets
