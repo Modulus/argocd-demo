@@ -4,7 +4,7 @@ metadata:
   name: go-metrics
   namespace: argocd
 spec:
-  project: demo
+  project: default
   source:
     repoURL: https://github.com/Modulus/argocd-demo.git
     targetRevision: HEAD

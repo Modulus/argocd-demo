@@ -4,7 +4,7 @@ metadata:
   name: kube-prometheus
   namespace: argocd
 spec:
-  project: default
+  project: monitoring
   source:
     repoURL: https://github.com/prometheus-operator/kube-prometheus.git
     targetRevision: release-0.7

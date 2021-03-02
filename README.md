@@ -1,7 +1,14 @@
 # Argocd tooling demo
 
 # Prerequisites
+```
+kind create cluster --config kind-config.yaml --name argo-cluster
+```
+Or start a minikube cluster
 
+```
+minikube start
+```
 
 # Install argocd
 kubectl create namespace argocd
@@ -35,6 +42,13 @@ kubectl apply -f argo/godemo.yaml
 
 argocd app list
 argocd app sync go-metrics
+
+# Create project
+argocd proj create core
+argocd proj create demo
+
+# Create project from file
+kubectl apply -f argo/projects
 
 
 # Deploy prometheus operator
