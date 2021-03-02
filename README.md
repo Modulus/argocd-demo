@@ -78,4 +78,6 @@ argocd app list
 argocd app sync go-metrics
 
 
-# TODO: Create demo for encrypted secrets
+# TODO: 
+[ x ] - Create demo for projects in argo
+[ ] - Create demo for encrypted secrets
