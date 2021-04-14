@@ -27,14 +27,21 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 argocd login localhost:8080 
 
-Password is name of argocd-server pod
+Password is name of argocd-server pod in argocd 1.8
 
 kubectl get po -n argocd  #optional
+
+In argocd 1.9+ there is a password
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
 
 
 argocd account update-password
 
 # 1.Default project examples
+
+kubectl apply -f argo/projects.yaml
 
 
 ## Deploy prometheus operator
