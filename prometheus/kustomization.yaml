@@ -6,7 +6,7 @@ configMapGenerator:
   - name: grafana-dashboard-argocd
     namespace: monitoring
     files:
-      - dashboards/argocd
+      - dashboards/argocd.json
 resources:
   - resources/app-serviceMonitor.yaml
 patchesStrategicMerge:
