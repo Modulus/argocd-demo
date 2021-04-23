@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: go-metrics
+  name: application
   namespace: argocd
 spec:
-  project: default
+  project: demo
   source:
-    repoURL: https://github.com/Modulus/argocd-demo.git
-    targetRevision: HEAD
+    repoURL: https://github.com/Modulus/argocd-demo-app.git
+    targetRevision: 1.0.0
     path: k8s
   destination:
     server: https://kubernetes.default.svc

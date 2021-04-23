@@ -1,0 +1,44 @@
+---
+# ClusterRole to allow prometheus access to read info from other namespaces
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus-k8s
+  namespace: monitoring
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/metrics
+  - services
+  - endpoints
+  - pods
+  - namespaces
+  # - namespaces # TODO: Test with this in cross namespace communication
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - configmap
+  verbs: ["get"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+
+---
+
+# Orginal looked like this
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRole
+# metadata:
+#   name: prometheus-adapter
+# rules:
+# - apiGroups:
+#   - ""
+#   resources:
+#   - nodes
+#   - namespaces
+#   - pods
+#   - services
+#   verbs:
+#   - get
+#   - list
+#   - watch

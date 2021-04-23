@@ -40,8 +40,13 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 argocd account update-password
 
 # 1.Default project examples
+kubectl create ns demo
+kubectl create ns monitoring
 
 kubectl apply -f argo/projects.yaml
+
+argocd proj list
+
 
 
 ## Deploy prometheus operator
@@ -56,33 +61,11 @@ argocd app list
 argocd app sync kube-prometheus
 
 ## Deploy demo app
-kubectl apply -f argo-default/godemo.yaml
+kubectl apply -f argo-default/demo.yaml
 argocd app list
 argocd app sync go-metrics
 
-# 2.New project examples
 
-## Create projects from file
-kubectl apply -f argo/projects.yaml
-
-## Argocd project commands
-argocd proj list
-
-## Deploy prometheus operator
-kubectl apply -f argo/prometheus-operator.yaml
-
-argocd app list
-argocd app sync prometheus-operator
-
-## Deploy kube-prometheus stack
-kubectl apply -f argo/kube-prometheus.yaml
-argocd app list
-argocd app sync kube-prometheus
-
-## Deploy demo app
-kubectl apply -f argo/godemo.yaml
-argocd app list
-argocd app sync go-metrics
 
 
 # TODO: 

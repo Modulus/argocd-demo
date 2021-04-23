@@ -23,20 +23,20 @@ spec:
   - namespace: default
     server: https://kubernetes.default.svc      
   - namespace: kube-system
-    server: https://kubernetes.default.svc            
+    server: https://kubernetes.default.svc    
 
   # Deny all cluster-scoped resources from being created, except for Namespace
-  clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  - group: 'apiextensions.k8s.io'
-    kind: CustomResourceDefinition    
-  - group: 'rbac.authorization.k8s.io'
-    kind: ClusterRoleBinding
-  - group: 'rbac.authorization.k8s.io'
-    kind: ClusterRole
-  - group: apiregistration.k8s.io    
-    kind: APIService    
+  # clusterResourceWhitelist:
+  # - group: ''
+  #   kind: Namespace
+  # - group: 'apiextensions.k8s.io'
+  #   kind: CustomResourceDefinition    
+  # - group: 'rbac.authorization.k8s.io'
+  #   kind: ClusterRoleBinding
+  # - group: 'rbac.authorization.k8s.io'
+  #   kind: ClusterRole
+  # - group: apiregistration.k8s.io    
+  #   kind: APIService    
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
@@ -123,7 +123,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: demo
-  namespace: argocd
+  namespace: demo
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
