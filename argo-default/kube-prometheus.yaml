@@ -6,7 +6,7 @@ metadata:
 spec:
   project: monitoring
   source:
-    repoURL: https://github.com/Modulus/argocd-demo-app.git
+    repoURL: https://github.com/Modulus/argocd-demo.git
     targetRevision: HEAD
     path: prometheus
   destination:
