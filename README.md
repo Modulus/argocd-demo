@@ -50,20 +50,20 @@ argocd proj list
 
 
 ## Deploy prometheus operator
-kubectl apply -f argo-default/prometheus-operator.yaml
+kubectl apply -f argo/prometheus-operator.yaml
 
 argocd app list
 argocd app sync prometheus-operator
 
 ## Deploy kube-prometheus stack
-kubectl apply -f argo-default/kube-prometheus.yaml
+kubectl apply -f argo/kube-prometheus.yaml
 argocd app list
 argocd app sync kube-prometheus
 
 ## Deploy demo app
-kubectl apply -f argo-default/demo.yaml
+kubectl apply -f argo/demo.yaml
 argocd app list
-argocd app sync go-metrics
+argocd app sync application
 
 
 

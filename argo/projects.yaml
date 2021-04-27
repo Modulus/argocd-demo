@@ -129,7 +129,15 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  # Project description
+  # syncWindows:
+  # - kind: allow
+  #   schedule: '* * * * *' #Evry minute
+  #   duration: 1h
+  #   applications:
+  #     - 'application'
+  #   namespaces:
+  #     - 'demo'
+  #   # prune: true
   description: Project to hold core compoments
 
   # Allow manifests to deploy from any Git repos
