@@ -71,3 +71,12 @@ argocd app sync application
 # TODO: 
 [ x ] - Create demo for projects in argo
 [ ] - Create demo for encrypted secrets
+
+
+## Rollouts
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
+
+https://argoproj.github.io/argo-rollouts/
+
+brew install argoproj/tap/kubectl-argo-rollouts
