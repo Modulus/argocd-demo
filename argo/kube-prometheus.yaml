@@ -6,10 +6,9 @@ metadata:
 spec:
   project: monitoring
   source:
-    repoURL:  https://github.com/prometheus-operator/kube-prometheus.git
-    targetRevision: release-0.7
-    path: manifests
-
+    repoURL: https://github.com/Modulus/argocd-demo.git
+    targetRevision: rollout #HEAD
+    path: prometheus/generated
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring      
+    namespace: monitoring

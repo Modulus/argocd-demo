@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
   name: success-rate
+  namespace: demo
 spec:
   args:
   - name: demo
@@ -14,11 +15,6 @@ spec:
     failureLimit: 3
     provider:
       prometheus:
-        address: http://prometheus.example.com:9090
+        address: http://prometheus-k8s:9090
         query: |
-          sum(irate(
-            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}",response_code!~"5.*"}[5m]
-          )) / 
-          sum(irate(
-            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}"}[5m]
-          ))
+          sum(irate(rocket_http_requests_total{status!~"5.*|4.*"}[5m])) / sum(irate(rocket_http_requests_total[5m]))

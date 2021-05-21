@@ -1,26 +1,42 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: demo
+  name: metrics-demo
+  namespace: demo
 spec:
   replicas: 2
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: demo
+      app: metrics-demo
   template:
     metadata:
       labels:
-        app: demo
+        app: metrics-demo
     spec:
       containers:
-      - name: rollouts-demo
+      - name: demo
         image: ghcr.io/modulus/argocd-demo-app:1.0.0
         imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
-        - containerPort: 8080
+        - name: web
+          containerPort: 8000
+        env: 
+          - name: RUST_LOG
+            value: info
   strategy:
     canary:
+      analysis:
+        templates:
+          - templateName: success-rate
+            startingStep: 3 # delay starting analysis run until setWeight: 40%
+            args:
+            - name: service-name
+              value: metrics-demo.demo.svc.cluster.local        
       steps:
       - setWeight: 20
       - pause: {}
@@ -30,17 +46,3 @@ spec:
       - pause: {duration: 10}
       - setWeight: 80
       - pause: {duration: 10}        
-  # strategy:
-  #   blueGreen: 
-  #     # activeService specifies the service to update with the new template hash at time of promotion.
-  #     # This field is mandatory for the blueGreen update strategy.
-  #     activeService: rollout-active
-  #     # previewService specifies the service to update with the new template hash before promotion.
-  #     # This allows the preview stack to be reachable without serving production traffic.
-  #     # This field is optional.
-  #     previewService: rollout-preview
-  #     # autoPromotionEnabled disables automated promotion of the new stack by pausing the rollout
-  #     # immediately before the promotion. If omitted, the default behavior is to promote the new
-  #     # stack as soon as the ReplicaSet are completely ready/available.
-  #     # Rollouts can be resumed using: `kubectl argo rollouts promote ROLLOUT`
-  #     autoPromotionEnabled: false
