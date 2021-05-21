@@ -7,7 +7,7 @@ spec:
   project: monitoring
   source:
     repoURL: https://github.com/Modulus/argocd-demo.git
-    targetRevision: HEAD
+    targetRevision: rollout #HEAD
     path: prometheus
   destination:
     server: https://kubernetes.default.svc

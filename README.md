@@ -14,6 +14,23 @@ minikube start
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+
+# Loadbalancer (optional)
+https://kind.sigs.k8s.io/docs/user/loadbalancer/
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
+
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
+
+
+kubectl get pods -n metallb-system --watch
+
+# Install nginx ingress(optional)
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+
+
 # Install cli 
 brew install argocd
 
@@ -60,8 +77,22 @@ kubectl apply -f argo/kube-prometheus.yaml
 argocd app list
 argocd app sync kube-prometheus
 
+
+## 1. Argo rollouts
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
+
+### Argo demo app
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/basic/rollout.yaml
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/basic/service.yaml
+
+### Argocd demo rollout
+kubectl apply -f argo/rollout/canary-demo.yaml
+kubectl argo rollouts get rollout demo --watch
+
 ## Deploy demo app
 kubectl apply -f argo/demo.yaml
+
 argocd app list
 argocd app sync application
 
