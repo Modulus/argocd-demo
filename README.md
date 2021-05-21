@@ -66,11 +66,6 @@ argocd proj list
 
 
 
-## Deploy prometheus operator
-kubectl apply -f argo/prometheus-operator.yaml
-
-argocd app list
-argocd app sync prometheus-operator
 
 ## Deploy kube-prometheus stack
 kubectl apply -f argo/kube-prometheus.yaml
@@ -86,11 +81,17 @@ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/arg
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/basic/rollout.yaml
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/basic/service.yaml
 
-### Argocd demo rollout
+### Alternative 1: Argocd demo rollout
 kubectl apply -f argo/rollout/canary-demo.yaml
-kubectl argo rollouts get rollout demo --watch
 
-## Deploy demo app
+kubectl argo rollouts  get rollout metrics-demo -n demo --watch
+
+ kubectl argo rollouts set image metrics-demo -n demo \
+  demo=ghcr.io/modulus/argocd-demo-app:1.0.1
+
+   kubectl argo rollouts promote metrics-demo -n demo
+
+### Alternative 2: Deploy demo app
 kubectl apply -f argo/demo.yaml
 
 argocd app list
